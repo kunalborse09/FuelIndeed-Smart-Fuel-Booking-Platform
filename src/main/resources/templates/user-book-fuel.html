@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Fuel</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #ffffff);
+        }
+
+        .box {
+            width: 440px;
+            margin: 60px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            text-align: center;
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 12px;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .total {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #198754;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #084298;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .location-info {
+            font-size: 12px;
+            color: #555;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Book Fuel</h2>
+
+    <div class="info">
+        <b th:text="${station.name}"></b><br>
+        City: <span th:text="${station.city}"></span>
+    </div>
+
+    <div class="info">
+        Petrol: ₹<span id="petrolRate" th:text="${station.petrolRate}"></span>/L  
+        (Available: <span id="petrolQty" th:text="${station.petrolQty}"></span> L)<br>
+        Diesel: ₹<span id="dieselRate" th:text="${station.dieselRate}"></span>/L  
+        (Available: <span id="dieselQty" th:text="${station.dieselQty}"></span> L)
+    </div>
+
+    <form th:action="@{/user/save-booking}" method="post">
+
+        <!-- Hidden Station -->
+        <input type="hidden" name="stationId" th:value="${station.id}">
+
+        <!-- DELIVERY ADDRESS -->
+        <label>Delivery Address</label>
+        <textarea name="deliveryAddress"
+                  rows="3"
+                  placeholder="House No, Area, Landmark, City"
+                  required></textarea>
+
+        <!-- Hidden GPS -->
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+
+        <div class="location-info" id="locationStatus">
+            📍 Detecting your location...
+        </div>
+
+        <label>Fuel Type</label>
+        <select name="fuelType" id="fuelType" onchange="calculateBill()">
+            <option value="PETROL">Petrol</option>
+            <option value="DIESEL">Diesel</option>
+        </select>
+
+        <label>Quantity (Litres)</label>
+        <input type="number" step="0.1" name="quantity" id="quantity"
+               oninput="calculateBill()" required>
+
+        <div class="error" id="error"></div>
+
+        <div class="total">
+            Total Bill: ₹<span id="totalBill">0</span>
+        </div>
+
+        <button type="submit">Confirm Booking</button>
+    </form>
+</div>
+
+<script>
+    function calculateBill() {
+        let fuelType = document.getElementById("fuelType").value;
+        let qty = parseFloat(document.getElementById("quantity").value) || 0;
+
+        let rate = fuelType === "PETROL"
+            ? parseFloat(document.getElementById("petrolRate").innerText)
+            : parseFloat(document.getElementById("dieselRate").innerText);
+
+        let available = fuelType === "PETROL"
+            ? parseFloat(document.getElementById("petrolQty").innerText)
+            : parseFloat(document.getElementById("dieselQty").innerText);
+
+        let errorDiv = document.getElementById("error");
+
+        if (qty > available) {
+            errorDiv.innerText = "Requested quantity not available";
+            document.getElementById("totalBill").innerText = "0";
+            return;
+        }
+
+        errorDiv.innerText = "";
+        document.getElementById("totalBill").innerText = (qty * rate).toFixed(2);
+    }
+
+    // 📍 AUTO LOCATION DETECTION
+    window.onload = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    document.getElementById("latitude").value = position.coords.latitude;
+                    document.getElementById("longitude").value = position.coords.longitude;
+                    document.getElementById("locationStatus").innerText =
+                        "📍 Location detected";
+                },
+                function () {
+                    document.getElementById("locationStatus").innerText =
+                        "⚠ Location permission denied";
+                }
+            );
+        } else {
+            document.getElementById("locationStatus").innerText =
+                "⚠ Geolocation not supported";
+        }
+    };
+</script>
+
+</body>
+</html>

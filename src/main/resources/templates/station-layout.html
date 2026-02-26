@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${pageTitle}">FuelIndeed</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- ✅ YOUR EXISTING CSS (UNCHANGED) -->
+    <style>
+        body { background:#f4f6f9; overflow-x:hidden; }
+        #sidebar { width:240px; min-height:100vh; background:#0b1e33; transition:.3s; }
+        #sidebar.collapsed { width:75px; }
+        #sidebar .nav-link { color:#cfd8dc; padding:14px 20px; display:flex; gap:12px; }
+        #sidebar .nav-link:hover, .nav-link.active { background:#163a5f; color:white; }
+        #sidebar.collapsed .nav-text { display:none; }
+        .topbar { height:70px; background:white; box-shadow:0 2px 6px rgba(0,0,0,.05); }
+    </style>
+</head>
+
+<body>
+
+<div class="d-flex">
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="p-3">
+        <div class="text-center text-white mb-4 fw-bold">FuelIndeed</div>
+
+        <ul class="nav flex-column">
+            <li><a th:href="@{/station/dashboard}" class="nav-link">
+                <i class="fas fa-home"></i><span class="nav-text">Dashboard</span></a></li>
+
+            <li><a th:href="@{/station/bookings/pending}" class="nav-link">
+                <i class="fas fa-clock"></i><span class="nav-text">Pending</span></a></li>
+
+            <li><a th:href="@{/station/bookings/assigned}" class="nav-link">
+                <i class="fas fa-truck"></i><span class="nav-text">Assigned</span></a></li>
+
+            <li><a th:href="@{/station/bookings/delivered}" class="nav-link">
+                <i class="fas fa-check-circle"></i><span class="nav-text">Delivered</span></a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN -->
+    <div class="flex-grow-1">
+
+        <!-- TOPBAR -->
+        <div class="topbar d-flex justify-content-between align-items-center px-4">
+            <div class="fw-semibold text-dark">
+                <i class="fas fa-gas-pump text-primary me-2"></i>
+                <span th:text="${headerTitle}">Dashboard</span>
+            </div>
+
+            <div class="dropdown">
+                <i class="fas fa-user-circle fs-3 text-secondary dropdown-toggle"
+                   data-bs-toggle="dropdown"></i>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" th:href="@{/station/profile}">My Profile</a></li>
+                    <li><a class="dropdown-item" th:href="@{/station/logout}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 🔥 DYNAMIC CONTENT AREA -->
+        <div class="container-fluid p-4">
+            <div th:replace="${content}"></div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function toggleSidebar(){
+        document.getElementById("sidebar").classList.toggle("collapsed");
+    }
+</script>
+
+</body>
+</html>

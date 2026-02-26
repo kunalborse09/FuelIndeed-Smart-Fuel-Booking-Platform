@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Delivery Person Registration</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+body {
+	font-family: 'Segoe UI', sans-serif;
+	background: linear-gradient(135deg, #faf9f6, #f3eee8);
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login-box {
+	background: rgba(255, 255, 255, 0.9);
+	backdrop-filter: blur(20px);
+	padding: 40px;
+	border-radius: 25px;
+	width: 400px;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+	text-align: center;
+}
+
+.login-box h2 {
+	color: #8b6655;
+	margin-bottom: 25px;
+}
+
+.login-box h2 i {
+	margin-right: 8px;
+}
+
+input {
+	width: 100%;
+	padding: 14px;
+	margin: 12px 0;
+	border-radius: 12px;
+	border: 1.5px solid #f0ceaa;
+	outline: none;
+	transition: 0.3s;
+	font-size: 14px;
+}
+
+input:focus {
+	border-color: #e0be9c;
+	box-shadow: 0 0 0 3px rgba(240, 206, 170, 0.2);
+}
+
+button {
+	width: 100%;
+	padding: 14px;
+	margin-top: 12px;
+	border: none;
+	border-radius: 15px;
+	background: linear-gradient(135deg, #f0ceaa, #e0be9c);
+	color: #8b6655;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 20px rgba(240, 206, 170, 0.4);
+}
+
+.links {
+	margin-top: 20px;
+	font-size: 14px;
+}
+
+.links a {
+	text-decoration: none;
+	color: #c19a82;
+	font-weight: 500;
+	transition: 0.3s;
+}
+
+.links a:hover {
+	color: #8b6655;
+}
+
+select {
+	width: 100%;
+	padding: 14px;
+	margin: 12px 0;
+	border-radius: 12px;
+	border: 1.5px solid #f0ceaa;
+	outline: none;
+	font-size: 14px;
+	background: white;
+}
+
+select:focus {
+	border-color: #e0be9c;
+	box-shadow: 0 0 0 3px rgba(240, 206, 170, 0.2);
+}
+</style>
+</head>
+
+<body>
+
+	<div class="login-box">
+
+		<h2>
+			<i class="fas fa-motorcycle"></i> Delivery Registration
+		</h2>
+
+		<form th:action="@{/delivery/register}" method="post">
+
+			<input type="text" name="name" placeholder="Full Name" required>
+
+			<input type="email" name="email" placeholder="Email Address" required>
+
+			<input type="password" name="password" placeholder="Password"
+				required>
+
+			<!-- ✅ Fuel Station Dropdown -->
+			<select name="stationId" required>
+				<option value="">Select Fuel Station</option>
+				<option th:each="station : ${stations}" th:value="${station.id}"
+					 th:text="${station.name + ' - ' + station.city}">
+			</select>
+
+			<button type="submit">Register</button>
+		</form>
+
+		<div class="links">
+			<a th:href="@{/delivery/login}"> Already have an account? Login </a>
+		</div>
+
+	</div>
+
+</body>
+</html>

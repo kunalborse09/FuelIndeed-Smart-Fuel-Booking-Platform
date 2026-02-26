@@ -1,0 +1,61 @@
+<div class="booking-wrapper">
+
+    <div class="booking-card">
+
+        <div class="booking-header">
+            🚚 My Fuel Bookings
+        </div>
+
+        <div class="booking-body">
+
+            <table class="table align-middle">
+
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Station</th>
+                    <th>Fuel</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Delivery Code</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:if="${#lists.isEmpty(bookings)}">
+                    <td colspan="8" class="text-center text-muted py-4">
+                        No bookings found
+                    </td>
+                </tr>
+
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.id}"></td>
+                    <td th:text="${booking.station.name}"></td>
+                    <td th:text="${booking.fuelType}"></td>
+                    <td th:text="${booking.quantity} + ' L'"></td>
+                    <td class="text-success fw-semibold">
+                        ₹ <span th:text="${booking.totalBill}"></span>
+                    </td>
+                    <td>
+                        <span class="badge bg-warning text-dark"
+                              th:text="${booking.status}">
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge bg-info"
+                              th:text="${booking.deliveryCode != null ? booking.deliveryCode : '-'}">
+                        </span>
+                    </td>
+                    <td th:text="${#temporals.format(booking.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

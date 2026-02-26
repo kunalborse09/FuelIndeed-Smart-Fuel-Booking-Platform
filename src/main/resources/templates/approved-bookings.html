@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Approved Bookings</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="station/dashboard :: layout(~{::section})">
+    <section>
+
+        <h3>Approved Bookings</h3>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Fuel</th>
+                <th>Assign</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="booking : ${bookings}">
+
+                <td th:text="${booking.id}"></td>
+                <td th:text="${booking.user.name}"></td>
+                <td th:text="${booking.fuelType}"></td>
+
+                <td>
+                    <form th:action="@{/station/bookings/assign}" method="post">
+                        <input type="hidden" name="bookingId" th:value="${booking.id}" />
+
+                        <select name="deliveryPersonId" class="form-select">
+                            <option th:each="dp : ${deliveryPersons}"
+                                    th:value="${dp.id}"
+                                    th:text="${dp.name}">
+                            </option>
+                        </select>
+
+                        <button class="btn btn-primary btn-sm mt-1">
+                            Assign
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Users</title>
+<style>
+body{font-family:Arial;background:#f4f6f8;}
+.container{width:90%;margin:30px auto;background:white;padding:20px;border-radius:6px;}
+table{width:100%;border-collapse:collapse;}
+th,td{border:1px solid #ccc;padding:8px;text-align:center;}
+th{background:#343a40;color:white;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Registered Users</h2>
+
+<table>
+<tr><th>ID</th><th>Name</th><th>Email</th><th>City</th></tr>
+<tr th:each="u : ${users}">
+    <td th:text="${u.id}"></td>
+    <td th:text="${u.name}"></td>
+    <td th:text="${u.email}"></td>
+    <td th:text="${u.city}"></td>
+</tr>
+</table>
+
+<a href="/admin/dashboard">⬅ Back</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>FuelIndeed - Admin Dashboard</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap + FontAwesome -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+	rel="stylesheet">
+
+<style>
+:root {
+	--bg-body: #f4f6f9;
+	--bg-sidebar: #0b1e33;
+	--bg-sidebar-hover: #163a5f;
+	--bg-topbar: #ffffff;
+	--text-main: #0b1e33;
+	--text-muted: #6b7280;
+	--card-bg: #ffffff;
+}
+
+body.dark-theme {
+	--bg-body: #0f172a;
+	--bg-sidebar: #020617;
+	--bg-sidebar-hover: #1e293b;
+	--bg-topbar: #020617;
+	--text-main: #e5e7eb;
+	--text-muted: #9ca3af;
+	--card-bg: #020617;
+}
+
+body {
+	background: var(--bg-body);
+	color: var(--text-main);
+	overflow-x: hidden;
+	transition: background 0.3s, color 0.3s;
+}
+
+/* SIDEBAR */
+#sidebar {
+	width: 240px;
+	min-height: 100vh;
+	background: var(--bg-sidebar);
+	transition: 0.3s;
+}
+
+#sidebar.collapsed {
+	width: 75px;
+}
+
+#sidebar .nav-link {
+	color: #cfd8dc;
+	padding: 14px 20px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+#sidebar .nav-link:hover, #sidebar .nav-link.active {
+	background: var(--bg-sidebar-hover);
+	color: white;
+}
+
+#sidebar.collapsed .nav-text {
+	display: none;
+}
+
+#sidebar.collapsed .nav-link {
+	justify-content: center;
+}
+
+/* TOPBAR */
+.topbar {
+	height: 70px;
+	background: var(--bg-topbar);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+	transition: background 0.3s;
+}
+
+/* PROFILE */
+.profile-dropdown-menu {
+	background: var(--card-bg);
+	color: var(--text-main);
+}
+
+.profile-dropdown-menu a {
+	color: var(--text-main);
+}
+
+.profile-dropdown-menu a:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+/* STAT CARDS */
+.stat-card {
+	border-radius: 16px;
+	color: white;
+	padding: 22px;
+	transition: 0.3s;
+}
+
+.stat-card:hover {
+	transform: translateY(-6px);
+}
+
+.stat-icon {
+	font-size: 36px;
+	opacity: 0.85;
+}
+
+.bg-pending {
+	background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.bg-approved {
+	background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.bg-rejected {
+	background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.bg-users {
+	background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* PROFILE FIX */
+.profile-wrapper {
+	position: relative;
+}
+
+.profile-trigger {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	padding: 6px 10px;
+	border-radius: 8px;
+	transition: background 0.2s;
+}
+
+.profile-trigger:hover {
+	background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .profile-trigger:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-trigger i {
+	font-size: 26px;
+	color: var(--text-main);
+}
+
+.profile-name {
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--text-main);
+}
+
+/* DROPDOWN */
+.profile-dropdown-menu {
+	position: absolute;
+	right: 0;
+	top: 120%;
+	min-width: 180px;
+	background: var(--card-bg);
+	border-radius: 12px;
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+	display: none;
+	overflow: hidden;
+	z-index: 1000;
+}
+
+.profile-dropdown-menu a {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 16px;
+	text-decoration: none;
+	color: var(--text-main);
+	font-size: 14px;
+}
+
+.profile-dropdown-menu a:hover {
+	background: rgba(0, 0, 0, 0.06);
+}
+
+body.dark-theme .profile-dropdown-menu a:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-title {
+	color: var(--text-main);
+}
+</style>
+</head>
+
+<body>
+
+	<div class="d-flex">
+
+		<!-- SIDEBAR -->
+		<div id="sidebar" class="p-3">
+			<div class="text-center text-white mb-4">
+				<span class="nav-text fw-bold">FuelIndeed</span>
+			</div>
+
+			<ul class="nav flex-column">
+
+				<!-- TOGGLE MENU -->
+				<li><a href="#" class="nav-link" onclick="toggleSidebar()">
+						<i class="fas fa-bars"></i> <span class="nav-text">Menu</span>
+				</a></li>
+
+				<li><a href="/admin/dashboard" class="nav-link active"> <i
+						class="fas fa-home"></i> <span class="nav-text">Dashboard</span>
+				</a></li>
+
+				<li><a href="/admin/stations/pending" class="nav-link"> <i
+						class="fas fa-clock"></i> <span class="nav-text">Pending
+							Stations</span>
+				</a></li>
+
+				<li><a href="/admin/stations/approved" class="nav-link"> <i
+						class="fas fa-check-circle"></i> <span class="nav-text">Approved</span>
+				</a></li>
+
+				<li><a href="/admin/stations/rejected" class="nav-link"> <i
+						class="fas fa-times-circle"></i> <span class="nav-text">Rejected</span>
+				</a></li>
+
+				<li><a href="/admin/users" class="nav-link"> <i
+						class="fas fa-users"></i> <span class="nav-text">Users</span>
+				</a></li>
+
+			</ul>
+		</div>
+
+		<!-- MAIN CONTENT -->
+		<div class="flex-grow-1">
+
+			<!-- TOPBAR -->
+			<div
+				class="topbar d-flex justify-content-between align-items-center px-4">
+				<div class="d-flex align-items-center gap-2">
+					<i class="fas fa-user-shield text-primary"></i> <span
+						class="fw-semibold admin-title">Admin Control Panel</span>
+				</div>
+				<div class="d-flex align-items-center gap-3">
+
+					<!-- THEME TOGGLE -->
+					<i id="themeIcon" class="fas fa-moon fs-5 text-secondary"
+						style="cursor: pointer" onclick="toggleTheme()"></i>
+
+					<!-- PROFILE -->
+					<div class="profile-wrapper">
+						<div class="profile-trigger" onclick="toggleProfileMenu()">
+							<i class="fas fa-user-circle"></i> <span class="profile-name">Admin</span>
+						</div>
+
+						<div class="profile-dropdown-menu" id="profileMenu">
+							<a href="#"><i class="fas fa-user me-2"></i> My Profile</a> <a
+								href="/admin/logout"><i class="fas fa-sign-out-alt me-2"></i>
+								Logout</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- CONTENT -->
+			<div class="container-fluid p-4">
+
+				<div class="row g-4">
+
+					<div class="col-md-3">
+						<div
+							class="stat-card bg-pending d-flex justify-content-between align-items-center">
+							<div>
+								<h6>Pending Stations</h6>
+								<h3 th:text="${pendingCount}">0</h3>
+							</div>
+							<i class="fas fa-clock stat-icon"></i>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div
+							class="stat-card bg-approved d-flex justify-content-between align-items-center">
+							<div>
+								<h6>Approved Stations</h6>
+								<h3 th:text="${approvedCount}">0</h3>
+							</div>
+							<i class="fas fa-check-circle stat-icon"></i>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div
+							class="stat-card bg-rejected d-flex justify-content-between align-items-center">
+							<div>
+								<h6>Rejected Stations</h6>
+								<h3 th:text="${rejectedCount}">0</h3>
+							</div>
+							<i class="fas fa-times-circle stat-icon"></i>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div
+							class="stat-card bg-users d-flex justify-content-between align-items-center">
+							<div>
+								<h6>Total Users</h6>
+								<h3 th:text="${userCount}">0</h3>
+							</div>
+							<i class="fas fa-users stat-icon"></i>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- JS -->
+	<script>
+	
+	function toggleSidebar() {
+		document.getElementById("sidebar").classList.toggle("collapsed");
+	}
+	
+		function toggleProfileMenu() {
+			const menu = document.getElementById("profileMenu");
+			menu.style.display = menu.style.display === "block" ? "none"
+					: "block";
+		}
+
+		function toggleTheme() {
+			document.body.classList.toggle("dark-theme");
+			localStorage.setItem("theme", document.body.classList
+					.contains("dark-theme") ? "dark" : "light");
+			updateThemeIcon();
+		}
+
+		function updateThemeIcon() {
+			const icon = document.getElementById("themeIcon");
+			if (document.body.classList.contains("dark-theme")) {
+				icon.classList.replace("fa-moon", "fa-sun");
+			} else {
+				icon.classList.replace("fa-sun", "fa-moon");
+			}
+		}
+
+		window.onload = function() {
+			if (localStorage.getItem("theme") === "dark") {
+				document.body.classList.add("dark-theme");
+			}
+			updateThemeIcon();
+		};
+	</script>
+
+</body>
+</html>
