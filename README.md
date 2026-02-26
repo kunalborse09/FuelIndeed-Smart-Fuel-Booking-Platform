@@ -25,9 +25,9 @@ FuelIndeed is a full-stack web application that enables users to book fuel onlin
 
 ## 🏗️ Tech Stack
 
-**Backend:** Java, Spring Boot, Spring MVC, Spring Security, JPA  
-**Frontend:** HTML, CSS, Bootstrap, Thymeleaf  
-**Database:** MySQL  
+**Backend:** Java, Spring Boot, Spring MVC, Spring Security, Spring Data JPA  
+**Frontend:** HTML, CSS, JavaScript, Bootstrap, Thymeleaf  
+**Database:** MySQL (XAMPP)
 **Tools:** Eclipse, Maven, Git, GitHub  
 
 ---
