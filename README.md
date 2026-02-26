@@ -31,16 +31,27 @@ FuelIndeed is a full-stack web application that enables users to book fuel onlin
 
 ## 🖼️ Screenshots
 
-| Home | User Dashboard |
-|------|----------------|
+
 <img width="1878" height="895" alt="Screenshot 2026-02-26 222705" src="https://github.com/user-attachments/assets/94826c13-0812-4f7f-aae7-f0fae98e8d01" />
 
+<img width="1878" height="901" alt="Screenshot 2026-02-26 183759" src="https://github.com/user-attachments/assets/216cd2f9-ff1c-4a6f-b3de-6680e9b44dbd" />
 
-| Admin Panel | Delivery Panel |
-|-------------|----------------|
-| ![](images/admin-dashboard.png) | ![](images/delivery-dashboard.png) |
 
----
+
+---<img width="1876" height="902" alt="Screenshot 2026-02-26 220527" src="https://github.com/user-attachments/assets/f8ffb1d8-1c11-4952-be25-0b2a504d096a" />
+
+
+<img width="1891" height="904" alt="Screenshot 2026-02-26 221345" src="https://github.com/user-attachments/assets/7f8cc1ee-bc97-4016-902e-aaa1e93a3544" />
+
+
+<img width="1885" height="896" alt="Screenshot 2026-02-26 184128" src="https://github.com/user-attachments/assets/3d9ed442-02d6-42c7-baf2-8f61e4008d1c" />
+
+
+<img width="1897" height="898" alt="Screenshot 2026-02-26 185412" src="https://github.com/user-attachments/assets/8d6ba292-0c82-4d3b-8489-943b168048a7" />
+
+
+
+
 
 ## ⚙️ Setup Instructions
 
