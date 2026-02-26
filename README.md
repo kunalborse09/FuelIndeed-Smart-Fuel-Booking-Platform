@@ -7,6 +7,7 @@
 ![HTML5](https://img.shields.io/badge/HTML5-Markup-orange)
 ![CSS3](https://img.shields.io/badge/CSS3-Styling-blue)
 ![JavaScript](https://img.shields.io/badge/JavaScript-Programming-yellow)
+
 FuelIndeed is a full-stack web application that enables users to book fuel online from nearby fuel stations with secure authentication, admin approval workflow, and delivery management system.
 
 ---
