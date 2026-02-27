@@ -1,4 +1,4 @@
-# ⛽ FuelIndeed-Smart-Fuel-Booking-Platform
+## ⛽ FuelIndeed - Smart Fuel Booking Platform
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-brightgreen)
