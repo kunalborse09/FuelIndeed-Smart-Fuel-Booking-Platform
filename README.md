@@ -1,4 +1,4 @@
-![Adobe Express - FuelIndeed User Dashboard](https://github.com/user-attachments/assets/82329790-4b25-4257-af87-fa4bdc34dff9)# ⛽ FuelIndeed – Smart Fuel Booking Platform
+
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-brightgreen)
