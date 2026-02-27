@@ -38,8 +38,7 @@ FuelIndeed is a full-stack web application that enables users to book fuel onlin
 <img width="1878" height="895" alt="Screenshot 2026-02-26 222705" src="https://github.com/user-attachments/assets/94826c13-0812-4f7f-aae7-f0fae98e8d01" />
 
 
-https://github.com/user-attachments/assets/ca0462ec-1b9c-47c4-8362-69c91c073d91
-
+[![Watch Demo](thumbnail.png)](https://github.com/user-attachments/assets/ca0462ec-1b9c-47c4-8362-69c91c073d91)
 
 <img width="1876" height="902" alt="Screenshot 2026-02-26 220527" src="https://github.com/user-attachments/assets/f8ffb1d8-1c11-4952-be25-0b2a504d096a" />
 
