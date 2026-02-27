@@ -1,4 +1,4 @@
-# ⛽ FuelIndeed – Smart Fuel Booking Platform
+![Adobe Express - FuelIndeed User Dashboard](https://github.com/user-attachments/assets/82329790-4b25-4257-af87-fa4bdc34dff9)# ⛽ FuelIndeed – Smart Fuel Booking Platform
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-Backend-brightgreen)
@@ -39,7 +39,7 @@ FuelIndeed is a full-stack web application that enables users to book fuel onlin
 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/171db9ab-249a-40e6-81d8-5901a75999a7" width="100%"/>
+  <img src="https://github.com/user-attachments/assets/b8c8bae2-27a6-4ade-92c7-265446e902e6" width="100%"/>
 </p>
 
 
